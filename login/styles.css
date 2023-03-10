@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.backstage {
+    width: 100vw;
+    height: 100vh;
+    background-color: tomato;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}
+.container {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 20px;
+    display: grid;
+    width: 20vw;
+    height: 30vh;
+    background-color: beige;
+    align-content: space-between;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+input {
+    width: 170px;
+}
+
+button{
+    width: 70px;
+    background-color: tomato;
+    border-radius: 3px;
+}
