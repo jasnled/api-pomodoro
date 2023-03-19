@@ -13,14 +13,12 @@ const PomodoroSchema = {
         type: DataTypes.INTEGER
         
     },
-
     value: {
 
         allowNull: false,
         type: DataTypes.INTEGER
 
     },
-
     timeSpend:{
         
         field: 'time_spend',
@@ -28,6 +26,11 @@ const PomodoroSchema = {
         type:DataTypes.INTEGER,
         allowNull: false,
 
+    },
+    run:{
+        allowNull: false,
+        default: false,
+        type: DataTypes.BOOLEAN,
     },
     userId: {
 

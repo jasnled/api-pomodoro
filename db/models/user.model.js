@@ -18,18 +18,16 @@ const UserSchema = {
         allowNull: false,
         type: DataTypes.STRING
     },
-    role: { 
-        allowNull: false,
-        type: DataTypes.STRING,
-        defaultValue: 'user',
+    currentPomodoroId: {
+        allowNull: true,
+        type: DataTypes.INTEGER
     },
     createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
         field: 'created_at',
         defaultValue: Sequelize.NOW
-    }
-
+    },
 };
 
 class User extends Model {
@@ -50,11 +48,11 @@ class User extends Model {
     static config(sequelize){
         return {
                 sequelize,
-                tableName: USER_TABLE, 
+                tableName: USER_TABLE,
                 modelName: 'User',
                 timestamps: false
             }
-        
+
     }
 
 }

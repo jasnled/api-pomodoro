@@ -1,15 +1,18 @@
 const { Strategy } = require('passport-local');
+const AuthService = require('../../../services/auth.service');
+const authService = new AuthService();
 
 const LocalStrategy = new Strategy({
     usernameField:'email',
     passwordField:'password'
     },
-    (email, password, done)=>{
+    async (email, password, done)=>{
     try{
-        const user = {
-            email,
-            password
-        }
+        const user = await authService.getUser(email);
+        const isMatch = authService.comparePassword(password, user.password);
+        if(!isMatch){
+          throw boom.unauthorized();
+        };
         done(null, user);
     }catch(error){
         done(error)
