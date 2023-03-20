@@ -5,8 +5,14 @@ const password = Joi.string().min(6).max(33);
 
 const loginUserSchema = Joi.object({
 
-    email: email.required(),
-    password: password.required()
+  email: email.required(),
+  password: password.required()
+
+});
+
+const recoveryPasswordSchema = Joi.object({
+
+  email:email.required()
 
 });
 
@@ -14,5 +20,4 @@ const loginUserSchema = Joi.object({
 
 
 
-
-module.exports = { loginUserSchema }
+module.exports = { loginUserSchema, recoveryPasswordSchema }

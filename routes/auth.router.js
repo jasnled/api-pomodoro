@@ -9,7 +9,7 @@ const service = new AuthService();
 
 const router = express.Router();
 
-router.get('/login',
+router.post('/login',
   validatorHandler(loginUserSchema, 'body'),
   passport.authenticate('local', { session: false }),
   async(req, res, next) => {
@@ -23,5 +23,5 @@ router.get('/login',
       next(err);
     }
   }
-
 );
+

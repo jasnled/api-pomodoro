@@ -4,6 +4,7 @@ const { USER_TABLE } = require('./user.model');
 const TASK_TABLE = 'tasks';
 
 const TaskSchema = {
+
     taskName: {
         allowNull: false,
         type: DataTypes.STRING,
@@ -33,11 +34,7 @@ const TaskSchema = {
         defaultValue: Sequelize.Now
     },
 
-
-    
-
-
-}; 
+};
 
 class Task extends Model {
     static associate(models){

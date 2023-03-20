@@ -14,6 +14,7 @@ class TaskService {
         userId
       }
     });
+
     return tasks;
   }
 
@@ -29,7 +30,7 @@ class TaskService {
   async update(id, data){
 
     const task = await this.findOne(id);
-    const rta = await models.Task.update(data);
+    const rta = await task.update(data);
     return rta;
   }
 

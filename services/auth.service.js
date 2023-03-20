@@ -9,7 +9,7 @@ class AuthService {
 
   signToken(user){
     const payload = {
-        sub:user.email
+        sub:user.id
     };
     const token = jwt.sign(payload, config.jwtSecret);
     return { user, token };
@@ -24,6 +24,7 @@ class AuthService {
     const isMatch = bcrypt.compare(password, hash);
     return isMatch;
   }
+
 
 
 }
