@@ -8,8 +8,9 @@ class UserService {
 
   async create(data){
 
-    const hash = bcrypt.hash(data.password, 10);
+    const hash = await bcrypt.hash(data.password, 10);
     data.password = hash;
+    console.log(`este el hash${hash}`);
     const newUser = await models.User.create(data);
     delete newUser.dataValues.password;
     return newUser;
@@ -29,7 +30,9 @@ class UserService {
   };
 
   async findOne(id){
-    const user = await models.User.findByPk(id);
+    const user = await models.User.findByPk(id, {
+      include: ['config']
+    });//traer relaciones
     if(!user){
       throw boom.notFound('user not found');
     }

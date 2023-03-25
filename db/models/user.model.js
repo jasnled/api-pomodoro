@@ -18,7 +18,7 @@ const UserSchema = {
         allowNull: false,
         type: DataTypes.STRING
     },
-    currentPomodoroId: {
+    currentTaskId: {
         allowNull: true,
         type: DataTypes.INTEGER
     },

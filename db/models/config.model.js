@@ -5,11 +5,12 @@ const CONFIG_TABLE = 'configs';
 
 const ConfigSchema = {
     id: {
-    
+
         allowNull: false,
         autoIncrement: true,
+        primaryKey:true,
         type: DataTypes.INTEGER
-    
+
     },
 
     pomodoro: {
@@ -17,7 +18,7 @@ const ConfigSchema = {
         allowNull: false,
         defaultValue: 25,
         type: DataTypes.INTEGER
-    
+
     },
     longBreak: {
 
@@ -25,15 +26,15 @@ const ConfigSchema = {
         defaultValue: 10,
         type:DataTypes.INTEGER,
         field: 'long_break'
-    
+
     },
     shortBreak: {
-    
+
         allowNull: false,
         defaultValue: 5,
         type: DataTypes.INTEGER,
         field: 'short_break'
-    
+
     },
     userId: {
 
@@ -44,16 +45,16 @@ const ConfigSchema = {
             key: 'id'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
-
+        onDelete: 'SET NULL',
+        type: DataTypes.INTEGER
     },
     createdAt: {
 
         allowNull: false,
-        type: DataTypes.DATE,
         field: 'created_at',
-        defaultValue: Sequelize.Now,
-    
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.NOW,
+
     }
 };
 

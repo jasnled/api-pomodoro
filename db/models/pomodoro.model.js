@@ -11,7 +11,7 @@ const PomodoroSchema = {
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER
-        
+
     },
     value: {
 
@@ -20,7 +20,7 @@ const PomodoroSchema = {
 
     },
     timeSpend:{
-        
+
         field: 'time_spend',
         defaultValue: 0,
         type:DataTypes.INTEGER,
@@ -29,17 +29,17 @@ const PomodoroSchema = {
     },
     run:{
         allowNull: false,
-        default: false,
+        default: true,
         type: DataTypes.BOOLEAN,
     },
     userId: {
 
         allowNull:false,
-        field: 'user_ident',
+        field: 'user_id',
         type: DataTypes.INTEGER,
         reference: {
             model: USER_TABLE,
-            key: id
+            key: 'id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL'
@@ -56,8 +56,8 @@ const PomodoroSchema = {
             key: 'id'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
-        
+        onDelete: 'SET NULL',
+
     },
 
     createdAt: {
@@ -83,10 +83,10 @@ class Pomodoro extends Model{
         return {
 
             sequelize,
-            tableName: POMODORO_TABLE, 
+            tableName: POMODORO_TABLE,
             modelName: 'Pomodoro',
             timestamps: false
-        
+
         }
     }
 }

@@ -48,7 +48,8 @@ Temporary Items
 ### macOS Patch ###
 # iCloud generated files
 *.icloud
-
+### data base
+postgres_data
 ### Node ###
 # Logs
 logs

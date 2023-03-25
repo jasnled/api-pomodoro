@@ -19,6 +19,16 @@ class ConfigService {
     return config
   }
 
+  async findOneByUserId(userId){
+    const config = await models.Config.findOne({
+      where:{ userId }
+    });
+    if(!config){
+      throw boom.notFound('config not found');
+    };
+    return config;
+  }
+
   async update(id, data){
 
     const config = await this.findOne(id);

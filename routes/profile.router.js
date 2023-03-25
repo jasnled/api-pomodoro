@@ -23,3 +23,7 @@ router.get('/config',
   passport.authenticate('jwt', {session:false}),
 
 );
+
+router.get('/pomodoros'
+  passport.authenticate('jwt', {session:false}),
+);

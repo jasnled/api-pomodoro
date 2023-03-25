@@ -1,23 +1,22 @@
-const Joi = require('Joi');
+const Joi = require('joi');
 
 const id = Joi.number();
 const taskName = Joi.string();
-const userId = Joi.number();
 
 const createTaskSchema = Joi.object({
 
-    taskName: taskName.required(),
+  taskName: taskName,
 
 });
 
 const updateTaskSchema = Joi.object({
 
-    taskName
+  taskName
 
 });
 
 const getTaskSchema =Joi.object({
-  id: id.require()
+  id: id.required()
 });
 
 

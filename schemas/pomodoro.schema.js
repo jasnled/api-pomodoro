@@ -5,27 +5,19 @@ const timeSpend = Joi.number();
 const userId = Joi.number();
 const taskId = Joi.number();
 const id = Joi.number();
+const run = Joi.bool();
 
 const createPomodoroSchema = Joi.object({
 
   value: value.required(),
-  userId: userId.required(),
-  taskId,
 
 });
 
 const updatePomodoroSchema = Joi.object({
 
-  id: id.required(),
   value,
   timeSpend,
-  taskId
-
-});
-
-const deletePomodoroSchema = Joi.object({
-
-  id: id.required()
+  run
 
 });
 
@@ -39,7 +31,6 @@ module.exports = {
 
   createPomodoroSchema,
   updatePomodoroSchema,
-  deletePomodoroSchema,
   getPomodoroSchema
 
-}
+};

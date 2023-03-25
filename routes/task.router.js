@@ -39,7 +39,7 @@ router.post('/',
         userId: user.sub
       }
       const rta = await service.create(data);
-      return rta;
+      res.status(200).json(rta);
     }
     catch(err){
       next(err);

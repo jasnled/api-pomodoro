@@ -11,12 +11,12 @@ class TaskService {
   async findByUser(userId){
     const tasks = await models.Task.findAll({
       where:{
-        userId
+        userId,
       }
     });
 
     return tasks;
-  }
+  };
 
   async findOne(id){
     const task = await models.Task.findByPk(id);
@@ -32,7 +32,8 @@ class TaskService {
     const task = await this.findOne(id);
     const rta = await task.update(data);
     return rta;
-  }
+
+  };
 
   async delete(id){
 
@@ -40,7 +41,7 @@ class TaskService {
     const rta = await task.destroy();
     return rta;
 
-  }
+  };
 };
 
 module.exports = TaskService;
