@@ -15,7 +15,7 @@ router.get('/:id',
     try{
 
       const { id } = req.params;
-      const task = service.findOne(id);
+      const task = await service.findOne(id);
       res.status(201).json(task ? task : null);
 
     }
@@ -32,7 +32,7 @@ router.post('/',
   passport.authenticate('jwt', { session:false }),
   async (req, res, next) => {
     try{
-      const data = req.body;
+      var data = req.body;
       const user = req.user;
       data = {
         ...data,

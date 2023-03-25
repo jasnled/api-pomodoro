@@ -14,7 +14,13 @@ const TaskSchema = {
   taskName: {
       allowNull: false,
       type: DataTypes.STRING,
-      defaultValue: 'no title'
+      defaultValue: 'no title',
+      field: 'task_name'
+  },
+  done: {
+    allowNull:false,
+    type:DataTypes.BOOLEAN,
+    defaultValue: false
   },
 
   userId: {
@@ -32,7 +38,7 @@ const TaskSchema = {
       allowNull: false,
       type: DataTypes.DATE,
       field: 'created_at',
-      defaultValue: Sequelize.Now
+      defaultValue: Sequelize.NOW
   },
 
 };

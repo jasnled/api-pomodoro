@@ -21,12 +21,14 @@ router.get('/',
 );
 
 router.patch('/',
-  passport.authenticate('jwt',{ session: false })),
   validatorHandler(updateConfigSchema, 'body'),
+  passport.authenticate('jwt',{ session: false }),
+
   async (req, res, next) => {
     try {
       const userId =  req.user.sub;
       const config = await service.findOneByUserId(userId);
+      console.log(`config ${config}`);
       const data = req.body;
       const rta = await config.update(data);
       res.status(200).json(rta);
@@ -36,5 +38,6 @@ router.patch('/',
     }
   }
 
+);
 
 module.exports = router;

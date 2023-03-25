@@ -16,9 +16,11 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable(USER_TABLE);
+
     await queryInterface.dropTable(POMODORO_TABLE);
     await queryInterface.dropTable(CONFIG_TABLE);
     await queryInterface.dropTable(TASK_TABLE);
+    await queryInterface.dropTable(USER_TABLE);
   }
+
 };

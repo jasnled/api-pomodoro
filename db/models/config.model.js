@@ -45,7 +45,7 @@ const ConfigSchema = {
             key: 'id'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
         type: DataTypes.INTEGER
     },
     createdAt: {

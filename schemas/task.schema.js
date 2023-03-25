@@ -2,6 +2,7 @@ const Joi = require('joi');
 
 const id = Joi.number();
 const taskName = Joi.string();
+const done = Joi.bool();
 
 const createTaskSchema = Joi.object({
 
@@ -11,7 +12,8 @@ const createTaskSchema = Joi.object({
 
 const updateTaskSchema = Joi.object({
 
-  taskName
+  taskName,
+  done
 
 });
 

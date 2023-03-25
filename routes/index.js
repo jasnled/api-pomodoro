@@ -5,7 +5,7 @@ const pomodorosRouter = require('./pomodoro.router');
 const taskRouter = require('./task.router');
 const configRouter = require('./config.router');
 const authRouter = require('./auth.router');
-//const profileRouter = require('./profile.router');
+const profileRouter = require('./profile.router');
 
 function routerApi(app){
 
@@ -13,10 +13,10 @@ function routerApi(app){
     app.use('/api/v1', router);
     router.use('/users', usersRouter);
     router.use('/pomodoros', pomodorosRouter);
-    router.use('/task', taskRouter);
+    router.use('/tasks', taskRouter);
     router.use('/config', configRouter);
     router.use('/auth', authRouter);
-    //router.use('/profile', profileRouter);
+    router.use('/profile', profileRouter);
 
 };
 

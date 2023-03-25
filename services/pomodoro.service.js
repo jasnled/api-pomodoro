@@ -4,6 +4,8 @@ const { models } = require('./../libs/sequelize');
 const UserService =require('../services/user.service');
 const TaskService = require('../services/task.service');
 
+
+
 const userService = new UserService();
 const taskService = new TaskService();
 
@@ -24,7 +26,7 @@ class PomodoroService {
   };
 
   async findByUser(userId){
-    const pomodoros = await findAll({
+    const pomodoros = await models.Pomodoro.findAll({
       where: { userId },
       include: ['task']
     });
@@ -48,24 +50,40 @@ class PomodoroService {
     return rta;
   }
 
+
+
   async createByUser(userId){
+      var user = await userService.findOne(userId);
+
+      async function createTaskToPomodoro (uId){
+
+        const newTask = await taskService.create({userId: uId}); // creamos la tarea sin titulo
+        await userService.update(uId, {currentTaskId: newTask.id}); // actualizamos datos de usuario agregandole id de task actual
+        const user = await userService.findOne(uId); // redefinimosa user para tener los datos actualizados en user
+        return user;
+      }
 
 
-      const user = await userService.findOne(userId);
 
-      if(!user.currentTaskId){ // si el usuario actualmente no tiene seleccionado una tarea debemos crear
-        const newTask = await taskService.create(user.id); // creamos la tarea sin titulo
-        await userService.update({currentTaskId: newTask.id}); // actualizamos datos de usuario agregandole id de task actual
-        user = await userService.findOne(userId); // redefinimosa user para tener los datos actualizados en user
+      if(user.currentTaskId){  //evaluamos si usuario tiene asociado una tarea actual
+        const task = await taskService.findOne(user.currentTaskId); //obtenemos task y vemos si ya esta asociada a un pomodoro
+        if(task.pomodoro){ //si tiene pomodoro creado otra tarea y asociamos su id al user
+          user = await createTaskToPomodoro(userId);
+          await task.update({done:true});
+          await this.update(task.pomodoro.id, { run: false });
+        };
+      } else { // si el usuario actualmente no tiene seleccionado una tarea debemos crear
+        user = await createTaskToPomodoro(userId)
       };
 
       const data = {
         value: user.config.pomodoro,
         userId: user.id,
         taskId: user.currentTaskId // sería ek
+
       };
 
-      const newPomodoro = await service.create(data);
+      const newPomodoro = await this.create(data);
 
       return newPomodoro
 

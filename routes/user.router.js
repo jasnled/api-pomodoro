@@ -16,7 +16,6 @@ router.post('/',
   async (req, res, next) => {
       try{
           const data = req.body;
-
           const newUser = await service.create(data);
           console.log(`el nuevo usuario es: ${newUser}`);
           const userId = newUser.id;
@@ -34,7 +33,6 @@ router.get('/:id',
   async ( req, res, next ) => {
     try{
       const { id } = req.params;
-
       const user = await service.findOne(id);
       res.status(201).json(user);
     }catch(err){

@@ -29,7 +29,7 @@ const PomodoroSchema = {
     },
     run:{
         allowNull: false,
-        default: true,
+        defaultValue: true,
         type: DataTypes.BOOLEAN,
     },
     userId: {
@@ -65,7 +65,7 @@ const PomodoroSchema = {
         allowNull: false,
         type: DataTypes.DATE,
         field: 'created_at',
-        defaultValue: Sequelize.Now
+        defaultValue: Sequelize.NOW
 
     }
 }

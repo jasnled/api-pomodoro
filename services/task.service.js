@@ -12,14 +12,16 @@ class TaskService {
     const tasks = await models.Task.findAll({
       where:{
         userId,
-      }
+      },
     });
 
     return tasks;
   };
 
   async findOne(id){
-    const task = await models.Task.findByPk(id);
+    const task = await models.Task.findByPk(id, {
+      include:['pomodoro']
+    });
 
     if(!task){
       throw boom.notFound('task not found');
