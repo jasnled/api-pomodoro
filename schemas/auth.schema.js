@@ -1,4 +1,4 @@
-Joi = require('joi');
+const Joi = require('joi');
 
 const email = Joi.string().min(3).max(33);
 const password = Joi.string().min(6).max(33);
@@ -16,8 +16,4 @@ const recoveryPasswordSchema = Joi.object({
 
 });
 
-
-
-
-
-module.exports = { loginUserSchema, recoveryPasswordSchema }
+module.exports = { loginUserSchema, recoveryPasswordSchema };

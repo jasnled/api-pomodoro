@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const { validatorHandler } = require('../middleware/validator.handler');
 const { loginUserSchema } = require('../schemas/auth.schema');
+const nodemailer = require("nodemailer");
 
 const AuthService = require('../services/auth.service');
 
@@ -24,5 +25,20 @@ router.post('/login',
     }
   }
 );
+
+router.post('/recovery',
+  async (req, res, next) => {
+    // async..await is not allowed in global scope, must use a wrapper
+    try {
+      const { email } = req.body;
+      const rta = await service.sendEmail(email);
+      res.status(200).json(rta);
+    } catch (error) {
+      next(error);
+    }
+
+  }
+);
+
 
 module.exports = router;

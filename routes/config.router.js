@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const { validatorHandler } = require('../middleware/validator.handler');
-const { createConfigSchema, updateConfigSchema, getConfigSchema } = require('../schemas/config.schema');
+const {  updateConfigSchema } = require('../schemas/config.schema');
 const ConfigService = require('../services/config.service');
 
 const service = new ConfigService();
