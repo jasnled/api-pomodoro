@@ -38,7 +38,9 @@ app.use(express.json());
 routerApi(app);
 // ejecutamos el index de lo strategys de autenticacion
 require('./utils/auth/index');
-
+app.get('/api', (req, res)=>{
+  res.send("welcome to api pomodoro");
+});
 app.listen(config.port, () => {
   console.log(`listen to port: ${config.port}`);
 });
