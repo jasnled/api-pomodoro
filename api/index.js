@@ -33,6 +33,9 @@ app.use(boomErrorHandler);
 app.use(errorHandler);
 app.use(ormErrorHandler);
 //
+app.get('/api', (req, res)=>{
+  res.send('welcome to my backend');
+});
 app.use(express.json());
 // ejecutamos el enrutado
 routerApi(app);
