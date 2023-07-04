@@ -3,6 +3,7 @@ const { validatorHandler } = require('../middleware/validator.handler');
 const { createUserSchema, getUserSchema, updateUserSchema } = require('../schemas/user.schema');
 const UserService = require('../services/user.service');
 const ConfigService = require('../services/config.service');
+const passport = require('passport');
 
 const service = new UserService();
 const configService = new ConfigService();
@@ -16,6 +17,7 @@ router.post('/',
   async (req, res, next) => {
       try{
           const data = req.body;
+          console.log(data);
           const newUser = await service.create(data);
           console.log(`el nuevo usuario es: ${newUser}`);
           const userId = newUser.id;
@@ -41,13 +43,11 @@ router.get('/:id',
   }
 );
 
-router.patch('/:id',
-  validatorHandler(getUserSchema, 'params'),
-  validatorHandler(updateUserSchema, 'body'),
+router.patch('/',
+  passport.authenticate('jwt', {session: false}),
   async (req,res,next) => {
     try {
-
-      const { id } = req.params;
+      const id = req.user.sub;
       const data = req.body;
       const rta = await service.update(id, data)
       res.status(200).json(rta);

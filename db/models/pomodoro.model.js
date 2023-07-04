@@ -19,9 +19,9 @@ const PomodoroSchema = {
         type: DataTypes.INTEGER
 
     },
-    timeSpend:{
+    timeSpent:{
 
-        field: 'time_spend',
+        field: 'time_spent',
         defaultValue: 0,
         type:DataTypes.INTEGER,
         allowNull: false,
@@ -57,6 +57,7 @@ const PomodoroSchema = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
+        unique: true
 
     },
 

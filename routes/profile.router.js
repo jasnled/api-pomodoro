@@ -6,6 +6,26 @@ const ProfileService = require('../services/profile.services');
 
 const service = new ProfileService();
 
+router.get('/',
+  passport.authenticate('jwt', { session:false }),
+  async (req, res, next) => {
+    try{
+      const userId  = req.user.sub;
+      const user = await service.findUser(userId);
+      const userSecure = {
+        id:user.id,
+        email:user.email,
+        currentTaskId: user.currentTaskId,
+        config: user.config
+      };
+      res.status(200).json(userSecure? userSecure : null);
+    }catch(err){
+      next(err);
+    }
+  }
+
+);
+
 
 router.get('/tasks',
   passport.authenticate('jwt', { session:false }),
@@ -65,6 +85,19 @@ router.delete('/',
   }
 );
 
+router.post('/change-password',
+  passport.authenticate('jwt', {session:false}),
+  async (req,res, next) => {
+    try {
+      const userId = req.user.sub;
+      const data = req.body;
+      const rta = await service.changePassword(userId, data);
+      res.status(200).json(rta);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 
 module.exports = router;

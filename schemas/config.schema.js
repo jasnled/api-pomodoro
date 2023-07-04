@@ -1,8 +1,8 @@
 const Joi = require('joi');
 
-const pomodoro = Joi.number().min(1).max(600);
-const shortBreak = Joi.number().min(1).max(600);
-const longBreak = Joi.number().min(1).max(600);
+const pomodoro = Joi.number().min(1).max(6000);
+const shortBreak = Joi.number().min(1).max(6000);
+const longBreak = Joi.number().min(1).max(6000);
 const userId = Joi.number();
 
 const createConfigSchema = Joi.object({

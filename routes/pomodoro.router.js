@@ -25,11 +25,12 @@ router.get('/:id',
 
 router.post('/',
   passport.authenticate('jwt', {session: false}),
+  validatorHandler(createPomodoroSchema, 'body'),
   async (req, res, next)=>{
     try{
-
+      const body = req.body;
       const userId = req.user.sub;
-      const newPomodoro = await service.createByUser(userId);
+      const newPomodoro = await service.createByUser(userId, body);
       res.status(200).json(newPomodoro);
 
     }catch(err){

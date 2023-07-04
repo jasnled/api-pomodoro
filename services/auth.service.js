@@ -4,7 +4,7 @@ const UserService = require('../services/user.service');
 const userService = new UserService();
 const bcrypt = require('bcrypt');
 const boom = require('@hapi/boom');
-
+const nodemailer = require('nodemailer');
 class AuthService {
 
   signToken(user){
@@ -18,12 +18,12 @@ class AuthService {
   async getUser(email){
     const user = await userService.findByEmail(email);
     return user;
-  }
+  };
 
   comparePassword(password, hash){
     const isMatch = bcrypt.compare(password, hash);
     return isMatch;
-  }
+  };
 
   async sendEmail(email, link){
 
@@ -42,14 +42,14 @@ class AuthService {
     });
     // send mail with defined transport object
     let info = await transporter.sendMail({
-      from: '"Fred Foo 👻" <foo@example.com>', // sender address
+      from: config.userMailer, // sender address
       to: email, // list of receivers
       subject: "Hello ✔", // Subject line
-      subject: "Email para recuperar contraseña ✔", // Subject line
-      html: `<b>Ingresa a este link => ${link}</b>` // html body
+      subject: "recovery password ✔", // Subject line
+      html: `<b>Please access the link to change password => ${link}</b>` // html body
     });
     return { message: 'mail sent' }
-  }
+  };
 
   async changePassword(token, newPassword){
     try {
@@ -64,10 +64,10 @@ class AuthService {
     } catch (error) {
       throw boom.unauthorized();
     }
-  }
+  };
 
   async sendRecovery(email){
-    const user = await service.findByEmail(email);
+    const user = await userService.findByEmail(email);
     if(!user){
       throw boom.unauthorized();
     };
@@ -75,9 +75,9 @@ class AuthService {
       sub: user.id,  // para generar el token con el id del user
     };
     const token = jwt.sign(payload, config.jwtSecret, {expiresIn: '15min'});
-    const  link = `http://myfrontend.com/recovery?token=${token}`;
-    await service.update(user.id, {recoveryToken: token});
-    const rta = await this.sendMail(email, link);
+    const  link = `http://localhost:3000/change-password?token=${token}`;
+    await userService.update(user.id, {recoveryToken: token});
+    const rta = await this.sendEmail(email, link);
     return rta;
   };
 

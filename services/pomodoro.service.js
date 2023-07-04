@@ -52,42 +52,38 @@ class PomodoroService {
 
 
 
-  async createByUser(userId){
+  async createByUser(userId, body){
       var user = await userService.findOne(userId);
-
-      async function createTaskToPomodoro (uId){
-
+      var task;
+      async function userAfterCreateTask (uId){
         const newTask = await taskService.create({userId: uId}); // creamos la tarea sin titulo
         await userService.update(uId, {currentTaskId: newTask.id}); // actualizamos datos de usuario agregandole id de task actual
         const user = await userService.findOne(uId); // redefinimosa user para tener los datos actualizados en user
         return user;
-      }
-
-
-
-      if(user.currentTaskId){  //evaluamos si usuario tiene asociado una tarea actual
-        const task = await taskService.findOne(user.currentTaskId); //obtenemos task y vemos si ya esta asociada a un pomodoro
-        if(task.pomodoro){ //si tiene pomodoro creado otra tarea y asociamos su id al user
-          user = await createTaskToPomodoro(userId);
-          await task.update({done:true});
-          await this.update(task.pomodoro.id, { run: false });
-        };
-      } else { // si el usuario actualmente no tiene seleccionado una tarea debemos crear
-        user = await createTaskToPomodoro(userId)
       };
 
+      if(!user.currentTaskId){  //evaluamos si usuario tiene asociado una tarea actual
+        user = await userAfterCreateTask(userId);
+      }else{
+        try{
+          task = await taskService.findOne(user.currentTaskId);
+        }catch(err){
+          await userService.update(userId, {currentTaskId: null});
+          user = await userAfterCreateTask(userId);
+        }
+      };
+      if(task?.pomodoro){
+        await this.update(task.pomodoro.id, {taskId: null, run: false})
+      }
       const data = {
-        value: user.config.pomodoro,
+        value:  body.value || user.config.pomodoro,
         userId: user.id,
         taskId: user.currentTaskId // sería ek
-
       };
 
       const newPomodoro = await this.create(data);
-
-      return newPomodoro
-
-  }
+      return newPomodoro;
+  };
 
 };
 

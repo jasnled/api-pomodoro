@@ -7,7 +7,9 @@ const config = {
   port: process.env.PORT || 3000,
   jwtSecret: process.env.JWT_SECRET,
   apiUrl: process.env.API_URL,
-  dbUrl: process.env.DATABASE_URL
+  dbUrl: process.env.DATABASE_URL,
+  passMailer:process.env.PASS_MAILER,
+  userMailer: process.env.USER_MAILER
 }
 
 

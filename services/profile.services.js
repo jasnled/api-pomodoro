@@ -2,6 +2,7 @@ const TaskService = require('../services/task.service');
 const PomodoroService = require('../services/pomodoro.service');
 const ConfigService = require('../services/config.service');
 const UserService = require('../services/user.service');
+const bcrypt = require('bcrypt');
 
 const taskService = new TaskService();
 const pomodoroService = new PomodoroService();
@@ -23,6 +24,11 @@ class ProfileService {
   async findConfig(userId){
     const config = await configService.findOneByUserId(userId);
     return config;
+  };
+
+  async findUser(userId){
+    const user = await userService.findOne(userId);
+    return user;
   };
 
   async deleteUser(userId){
@@ -55,6 +61,11 @@ class ProfileService {
     return rta;
   }
 
+  async changePassword(userId, data){
+    const password = await bcrypt.hash(data.newPassword, 10);
+    const rta = await userService.update(userId, { password });
+    return rta;
+  }
 
 }
 

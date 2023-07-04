@@ -1,6 +1,7 @@
 const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
 
+
 class TaskService {
 
   async create(data){
@@ -13,10 +14,25 @@ class TaskService {
       where:{
         userId,
       },
+      include:['pomodoro']
     });
 
     return tasks;
   };
+
+  async deleteTasksDone(userId){
+    const tasksDone = await models.Task.findAll({
+      where:{
+        userId,
+        done: true
+      },
+    });
+    tasksDone.map(async taskDone => {
+     const rta = await taskDone.destroy();
+    });
+    return {mesagge: "Deleted"};
+
+  }
 
   async findOne(id){
     const task = await models.Task.findByPk(id, {
@@ -39,8 +55,11 @@ class TaskService {
 
   async delete(id){
 
-    const task = await this.findOne(id);
+    const task = await this.findOne(id,{
+      include:['pomodoro']
+    });
     const rta = await task.destroy();
+
     return rta;
 
   };

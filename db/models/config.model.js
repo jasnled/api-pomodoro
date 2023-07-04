@@ -16,14 +16,14 @@ const ConfigSchema = {
     pomodoro: {
 
         allowNull: false,
-        defaultValue: 25,
+        defaultValue: 25*60,
         type: DataTypes.INTEGER
 
     },
     longBreak: {
 
         allowNull:false,
-        defaultValue: 10,
+        defaultValue: 10*60,
         type:DataTypes.INTEGER,
         field: 'long_break'
 
@@ -31,7 +31,7 @@ const ConfigSchema = {
     shortBreak: {
 
         allowNull: false,
-        defaultValue: 5,
+        defaultValue: 5*60,
         type: DataTypes.INTEGER,
         field: 'short_break'
 

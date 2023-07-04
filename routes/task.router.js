@@ -89,7 +89,7 @@ router.delete('/:id',
     try {
 
       const { id } = req.params;
-      const rta = service.delete(id);
+      const rta = await service.delete(id);
       res.status(200).json(rta);
 
     } catch (err) {
@@ -97,6 +97,19 @@ router.delete('/:id',
     }
   }
 );
+router.delete('/',
+  passport.authenticate('jwt', {session: false}),
+  async (req, res, next)=>{
+    try{
+      const userId = req.user.sub;
+      const rta = await service.deleteTasksDone(userId);
+      res.status(200).json(rta);
+    }catch(error){
+      next(error);
+    }
+  }
+);
+
 
 
 module.exports = router;

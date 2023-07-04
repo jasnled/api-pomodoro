@@ -1,8 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const { validatorHandler } = require('../middleware/validator.handler');
-const { loginUserSchema } = require('../schemas/auth.schema');
-const nodemailer = require("nodemailer");
+const { loginUserSchema, recoveryPasswordSchema } = require('../schemas/auth.schema');
 
 const AuthService = require('../services/auth.service');
 
@@ -15,8 +14,12 @@ router.post('/login',
   passport.authenticate('local', { session: false }),
   async(req, res, next) => {
     try{
-
-      const user = req.user;
+      const userReq = req.user;
+      const user = {
+         id: userReq.id,
+         email: userReq.email,
+         currentTaskId: userReq.currentTaskId
+      };
       const token = service.signToken(user);
       res.status(200).json(token);
 
@@ -31,7 +34,7 @@ router.post('/recovery',
     // async..await is not allowed in global scope, must use a wrapper
     try {
       const { email } = req.body;
-      const rta = await service.sendEmail(email);
+      const rta = await service.sendRecovery(email);
       res.status(200).json(rta);
     } catch (error) {
       next(error);
@@ -40,5 +43,18 @@ router.post('/recovery',
   }
 );
 
+router.post('/change-password',
+  async (req, res, next) => {
+    try {
+
+      const { token, newPassword } = req.body;
+      const rta = await service.changePassword(token, newPassword);
+      res.status(200).json(rta);
+
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 module.exports = router;

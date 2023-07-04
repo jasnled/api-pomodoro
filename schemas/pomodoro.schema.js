@@ -1,9 +1,7 @@
 const Joi = require('joi');
 
 const value = Joi.number();
-const timeSpend = Joi.number();
-const userId = Joi.number();
-const taskId = Joi.number();
+const timeSpent = Joi.number();
 const id = Joi.number();
 const run = Joi.bool();
 
@@ -16,7 +14,7 @@ const createPomodoroSchema = Joi.object({
 const updatePomodoroSchema = Joi.object({
 
   value,
-  timeSpend,
+  timeSpent,
   run
 
 });

@@ -42,6 +42,9 @@ class UserService {
   async update(id, data){
 
     const user = await this.findOne(id);
+    if(!user){
+      throw boom.notFound('user not found');
+    }
     const rta = await user.update(data);
     return rta;
 
