@@ -41,6 +41,6 @@ app.use(express.json());
 routerApi(app);
 // ejecutamos el index de lo strategys de autenticacion
 require('./utils/auth/index');
-app.listen(config.port, () => {
+app.listen(5772, () => {
   console.log(`listen to port: ${config.port}`);
 });
