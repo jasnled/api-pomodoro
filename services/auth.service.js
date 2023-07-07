@@ -75,7 +75,7 @@ class AuthService {
       sub: user.id,  // para generar el token con el id del user
     };
     const token = jwt.sign(payload, config.jwtSecret, {expiresIn: '15min'});
-    const  link = `http://localhost:3000/change-password?token=${token}`;
+    const  link = `${config.frontUrl}/change-password?token=${token}`;
     await userService.update(user.id, {recoveryToken: token});
     const rta = await this.sendEmail(email, link);
     return rta;

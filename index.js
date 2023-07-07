@@ -12,10 +12,7 @@ const {
 } = require('./middleware/error.handler');
 // cors
 const whitelist = [
-  'http://localhost:3000',
-  'http://127.0.0.1:5050',
-  'http://localhost:5050',
-  'http://localhost:8080',
+  `${config.frontUrl}`,
 ];
 const options = {
   origin: (origin, callback) => {

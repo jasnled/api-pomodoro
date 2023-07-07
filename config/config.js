@@ -9,7 +9,8 @@ const config = {
   apiUrl: process.env.API_URL,
   dbUrl: process.env.DATABASE_URL,
   passMailer:process.env.PASS_MAILER,
-  userMailer: process.env.USER_MAILER
+  userMailer: process.env.USER_MAILER,
+  frontUrl: process.env.FRONT_URL
 }
 
 
